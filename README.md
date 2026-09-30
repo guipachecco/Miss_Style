@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Miss Style — site do ateliê
 
-## Getting Started
+Vitrine digital do ateliê de roupas sob medida Miss Style (Jaraguá do Sul, SC).
+Next.js 16 · TypeScript · Tailwind CSS 4 · Sanity (painel de conteúdo).
 
-First, run the development server:
+## Rodar no computador
 
 ```bash
+npm install
+cp .env.example .env.local   # preencha NEXT_PUBLIC_SANITY_PROJECT_ID
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Site: http://localhost:3000
+- Painel da dona: http://localhost:3000/studio (o endereço precisa estar na lista de CORS do projeto no Sanity)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Variáveis de ambiente
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Variável | Para quê |
+|---|---|
+| `NEXT_PUBLIC_SANITY_PROJECT_ID` | Projeto do Sanity (público, não é segredo) |
+| `NEXT_PUBLIC_SANITY_DATASET` | Dataset do Sanity (`production`) |
+| `NEXT_PUBLIC_SITE_URL` | Endereço público do site (links e prévias) |
+| `NEXT_PUBLIC_INDEXAR` | `1` libera o Google; sem isso o site fica oculto das buscas (modo teste) |
 
-## Learn More
+Nunca coloque tokens ou senhas em arquivos versionados.
 
-To learn more about Next.js, take a look at the following resources:
+## Estrutura
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+src/app/            páginas (home, galeria, galeria/[slug], sobre, servicos, contato, studio)
+src/components/     layout/, ui/, galeria/, contato/
+src/lib/            site.ts (textos fixos, WhatsApp, versículos), pecas.ts (dados), categorias.ts
+src/sanity/         schema do painel e configuração
+sanity.config.ts    configuração do painel (montado em /studio)
+public/             logo, ícone e fotos provisórias
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Como as peças chegam ao site
 
-## Deploy on Vercel
+`src/lib/pecas.ts` lê do Sanity e atualiza sozinho em cerca de 1 minuto após a dona publicar.
+Enquanto não houver **nenhuma** peça publicada no painel, o site mostra as peças provisórias definidas nesse arquivo.
+Ao publicar a primeira peça, o site passa a exibir somente o que está no painel.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Antes de divulgar
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Trocar as fotos provisórias por fotos reais (e conferir autorização de uso de imagem de quem aparece).
+- Confirmar o número de WhatsApp e a versão da Bíblia dos versículos.
+- Escrever a história real do ateliê na página Sobre (`src/app/sobre/page.tsx`).
+- Definir `NEXT_PUBLIC_INDEXAR=1` e o `NEXT_PUBLIC_SITE_URL` do domínio final.

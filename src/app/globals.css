@@ -1,26 +1,73 @@
 @import "tailwindcss";
 
+/* Paleta B — Ouro e marfim (ver /docs de design) */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --marfim: #faf7f0;
+  --champagne: #e8d9b5;
+  --ouro: #b8892e;
+  --ouro-escuro: #8a6420; /* ouro para texto e botões (contraste AA sobre marfim) */
+  --laranja: #e08a3c;
+  --rosa: #f0d5cf;
+  --grafite: #2b2622;
+  --dourado-logo: #8c7444;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-marfim: var(--marfim);
+  --color-champagne: var(--champagne);
+  --color-ouro: var(--ouro);
+  --color-ouro-escuro: var(--ouro-escuro);
+  --color-laranja: var(--laranja);
+  --color-rosa: var(--rosa);
+  --color-grafite: var(--grafite);
+  --color-dourado-logo: var(--dourado-logo);
+
+  --font-sans: var(--font-jost);
+  --font-serif: var(--font-cormorant);
+  --font-script: var(--font-allura);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--marfim);
+  color: var(--grafite);
+  font-family: var(--font-jost), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--champagne);
+}
+
+:focus-visible {
+  outline: 2px solid var(--ouro-escuro);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Entrada suave das seções (só onde a página usa a classe) */
+@keyframes subir {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.entrada {
+  animation: subir 0.8s ease-out both;
 }
