@@ -5,7 +5,7 @@ import { rastrear, type OrigemWhatsApp } from "@/lib/analytics";
 import { mensagemPadrao } from "@/lib/mensagens";
 import { linkWhatsApp } from "@/lib/site";
 
-type Comum = { className?: string; children: ReactNode; "aria-label"?: string };
+type Comum = { className?: string; children: ReactNode; "aria-label"?: string; aoClicar?: () => void };
 
 // Dois usos: link comum (conta `whatsapp_clique` com a origem) ou o botão final do assistente
 // (conta só `pedido_enviado`, para a comparação entre cliques diretos e pedidos não duplicar).
@@ -23,6 +23,7 @@ export function LinkWhatsApp(props: Props) {
   function aoClicar() {
     if (props.evento === "pedido_enviado") rastrear("pedido_enviado");
     else rastrear("whatsapp_clique", { origem: props.origem });
+    props.aoClicar?.();
   }
 
   return (
