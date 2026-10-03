@@ -10,6 +10,7 @@ import {
   TIPOS_PECA,
   caracteresRestantes,
   validarData,
+  limparPasso,
   type RespostasPedido,
 } from "@/lib/pedido";
 import { apagarRascunho, carregarRascunho, salvarRascunho } from "@/lib/rascunho";
@@ -32,7 +33,7 @@ function Opcoes<T extends string>({
 }: {
   valores: readonly T[];
   atual?: T;
-  aoEscolher: (valor: T) => void;
+  aoEscolher: (valor: T | undefined) => void;
 }) {
   return (
     <div className="mt-3 flex flex-wrap gap-2">
@@ -41,7 +42,7 @@ function Opcoes<T extends string>({
           key={valor}
           type="button"
           aria-pressed={atual === valor}
-          onClick={() => aoEscolher(valor)}
+          onClick={() => aoEscolher(atual === valor ? undefined : valor)}
           className={`min-h-11 rounded-full border px-5 py-2 text-sm transition-colors ${
             atual === valor
               ? "border-ouro-escuro bg-ouro-escuro text-marfim"
@@ -306,7 +307,10 @@ function Assistente({ modeloReferencia }: { modeloReferencia?: string }) {
             </button>
             <button
               type="button"
-              onClick={() => irPara(passo + 1)}
+              onClick={() => {
+                setRespostas((r) => limparPasso(r, passo));
+                irPara(passo + 1);
+              }}
               className="min-h-11 px-3 text-sm text-grafite/70 underline underline-offset-4"
             >
               Pular

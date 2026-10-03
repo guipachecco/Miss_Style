@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { mensagemPadrao, montarMensagemPedido } from "./mensagens";
+import { limparPasso } from "./pedido";
 import { linkWhatsApp } from "./site";
 
 describe("montarMensagemPedido", () => {
@@ -56,6 +57,11 @@ describe("montarMensagemPedido", () => {
     [{ comprimento: "Longo" }, "uma peça de comprimento longo"],
   ] as const)("concorda o gênero do comprimento: %j", (resposta, esperado) =>
     expect(montarMensagemPedido({ nome: "Ana", ...resposta })).toBe(`Olá! Meu nome é Ana. Quero encomendar ${esperado}.`));
+
+  it("pular o passo 1 descarta a data passada que estava na tela", () =>
+    expect(montarMensagemPedido(limparPasso({ nome: "Ana", ocasiao: "Casamento", data: "2026-10-01" }, 1))).toBe(
+      "Olá! Meu nome é Ana. Gostaria de fazer uma encomenda.",
+    ));
 
   it("debutante vira 'festa de debutante'", () =>
     expect(montarMensagemPedido({ nome: "Ana", tipo: "Vestido", ocasiao: "Debutante" })).toBe(

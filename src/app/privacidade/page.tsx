@@ -20,9 +20,10 @@ const secoes = [
   {
     titulo: "O que o site mede",
     texto: [
-      "Usamos o Umami, uma ferramenta de medição que não usa cookies. Ela registra quais páginas são visitadas, de onde a pessoa veio, o navegador, o sistema e o tipo de aparelho, e o país.",
+      "Usamos o Umami, uma ferramenta de medição que não usa cookies. Ela registra o endereço e o título das páginas visitadas, de onde a pessoa veio, o navegador, o sistema, o tipo e o tamanho da tela do aparelho, o idioma e a localização aproximada (país, região e cidade).",
+      "A localização é estimada a partir do endereço de internet (IP) do aparelho, que, segundo a Umami, nunca é guardado. Não registramos o que vem depois do “?” nos endereços, como os códigos que redes sociais acrescentam aos links.",
       "Também contamos três ações: quando alguém clica em um botão de WhatsApp (e qual botão), em que passo do assistente de pedido a pessoa está e quando ela envia o pedido. Essas contagens servem para entender o que ajuda as clientes e melhorar o site.",
-      "Respeitamos a opção “Não rastrear” do seu navegador. Os dados da medição ficam em servidores da Umami, que podem estar fora do Brasil.",
+      "Respeitamos a opção “Não rastrear” do seu navegador. Os dados da medição ficam em servidores da Umami nos Estados Unidos e na União Europeia.",
     ],
   },
   {

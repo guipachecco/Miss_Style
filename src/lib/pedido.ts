@@ -56,3 +56,38 @@ export function caracteresRestantes(r: Pick<RespostasPedido, "tecido" | "cor" | 
   const usados = (r.tecido?.length ?? 0) + (r.cor?.length ?? 0) + (r.detalhes?.length ?? 0);
   return LIMITE_DETALHES - usados;
 }
+
+// Campos de cada passo. "Pular" descarta o que estava preenchido nele: pular tem de significar
+// "não quero responder isto", senão uma escolha por engano (ou uma data passada) segue na mensagem.
+const CAMPOS_DO_PASSO: Record<number, (keyof RespostasPedido)[]> = {
+  1: ["ocasiao", "ocasiaoOutra", "data", "semData"],
+  2: ["tipo", "comprimento"],
+  3: ["tecido", "cor", "detalhes", "temReferencia"], // o modelo de referência vindo da peça fica
+};
+
+export function limparPasso(r: RespostasPedido, passo: number): RespostasPedido {
+  const campos = CAMPOS_DO_PASSO[passo];
+  if (!campos) return r;
+  const copia = { ...r };
+  for (const campo of campos) delete copia[campo];
+  return copia;
+}
+
+const TEXTOS = ["ocasiaoOutra", "data", "tecido", "cor", "detalhes", "modeloReferencia", "nome"] as const;
+const BOOLEANOS = ["semData", "temReferencia"] as const;
+
+// Tudo o que vem do sessionStorage é desconhecido: aceita campo a campo, só com o tipo e as opções
+// que o código de hoje conhece. Um rascunho antigo, ou editado, nunca deve quebrar a página.
+export function sanitizarRespostas(dado: unknown): RespostasPedido {
+  if (!dado || typeof dado !== "object" || Array.isArray(dado)) return {};
+  const origem = dado as Record<string, unknown>;
+  const saida: Record<string, unknown> = {};
+
+  for (const chave of TEXTOS) if (typeof origem[chave] === "string") saida[chave] = origem[chave];
+  for (const chave of BOOLEANOS) if (typeof origem[chave] === "boolean") saida[chave] = origem[chave];
+  if ((OCASIOES as readonly unknown[]).includes(origem.ocasiao)) saida.ocasiao = origem.ocasiao;
+  if ((TIPOS_PECA as readonly unknown[]).includes(origem.tipo)) saida.tipo = origem.tipo;
+  if ((COMPRIMENTOS as readonly unknown[]).includes(origem.comprimento)) saida.comprimento = origem.comprimento;
+
+  return saida as RespostasPedido;
+}

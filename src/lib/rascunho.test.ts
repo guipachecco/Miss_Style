@@ -44,6 +44,16 @@ describe("rascunho do pedido", () => {
     (bruto) => expect(carregarRascunho(storageFalso({ [CHAVE]: bruto }))).toBeNull(),
   );
 
+  it("descarta campos com tipo errado ou opção desconhecida em vez de deixar quebrar depois", () => {
+    const storage = storageFalso({
+      [CHAVE]: '{"passo":4,"respostas":{"nome":123,"tipo":"Conjunto antigo","semData":"sim","cor":"azul"}}',
+    });
+    expect(carregarRascunho(storage)).toEqual({ passo: 4, respostas: { cor: "azul" } });
+  });
+
+  it("devolve null quando respostas é um array", () =>
+    expect(carregarRascunho(storageFalso({ [CHAVE]: '{"passo":1,"respostas":[]}' }))).toBeNull());
+
   it("devolve null se getItem lançar (armazenamento bloqueado)", () =>
     expect(
       carregarRascunho({

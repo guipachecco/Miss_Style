@@ -2,7 +2,7 @@
 // atualizar a página ou voltar não apague o que a cliente já escreveu. Nada sai do navegador.
 // Nenhuma função lança erro: se o armazenamento estiver bloqueado, o assistente só começa vazio.
 
-import type { RespostasPedido } from "./pedido";
+import { sanitizarRespostas, type RespostasPedido } from "./pedido";
 
 const CHAVE = "missstyle:pedido:v1";
 
@@ -26,7 +26,7 @@ export function carregarRascunho(storage?: Pick<Storage, "getItem">): Rascunho |
     const { passo, respostas } = dado as Partial<Rascunho>;
     if (typeof passo !== "number" || !Number.isInteger(passo) || passo < 1 || passo > 4) return null;
     if (!respostas || typeof respostas !== "object" || Array.isArray(respostas)) return null;
-    return { passo, respostas };
+    return { passo, respostas: sanitizarRespostas(respostas) };
   } catch {
     return null;
   }
