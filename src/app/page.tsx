@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { CartaoPeca } from "@/components/galeria/CartaoPeca";
-import { Botao, classesBotao } from "@/components/ui/Botao";
+import { Botao } from "@/components/ui/Botao";
 import { LinkWhatsApp } from "@/components/ui/LinkWhatsApp";
 import { TituloSecao } from "@/components/ui/TituloSecao";
 import { Versiculo } from "@/components/ui/Versiculo";
@@ -22,13 +22,16 @@ export default async function Home() {
           </h1>
           <p className="mx-auto mt-6 max-w-md text-lg leading-relaxed text-grafite/80 md:mx-0">{site.frase}</p>
           <div className="mt-9 flex flex-col items-center gap-3 sm:flex-row sm:justify-center md:justify-start">
-            <LinkWhatsApp origem="home_hero" className={classesBotao("primario")}>
-              Falar no WhatsApp
-            </LinkWhatsApp>
+            <Botao href="/pedido">Montar meu pedido</Botao>
             <Botao href="/galeria" variante="contorno">
               Ver modelos
             </Botao>
           </div>
+          <p className="mt-4 text-sm text-grafite/70">
+            <LinkWhatsApp origem="home_hero" className="inline-block py-2 underline underline-offset-4 hover:text-ouro-escuro">
+              Prefiro falar direto no WhatsApp
+            </LinkWhatsApp>
+          </p>
         </div>
 
         <div className="entrada mx-auto w-full max-w-sm md:max-w-md" style={{ animationDelay: "0.15s" }}>
@@ -114,9 +117,14 @@ export default async function Home() {
           Conte a sua ideia pelo WhatsApp ou pelo Instagram e vamos transformá-la em uma peça única.
         </p>
         <div className="mt-8">
-          <LinkWhatsApp origem="home_final" className={classesBotao("primario", "bg-champagne !text-grafite hover:bg-marfim")}>
+          <Botao href="/pedido" className="bg-champagne !text-grafite hover:bg-marfim">
             Fazer minha encomenda
-          </LinkWhatsApp>
+          </Botao>
+          <p className="mt-4 text-sm">
+            <LinkWhatsApp origem="home_final" className="inline-block py-2 text-marfim/80 underline underline-offset-4 hover:text-champagne">
+              Prefiro falar direto no WhatsApp
+            </LinkWhatsApp>
+          </p>
         </div>
       </section>
     </>

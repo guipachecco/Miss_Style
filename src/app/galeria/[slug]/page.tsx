@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FotoPeca } from "@/components/galeria/CartaoPeca";
-import { Botao, classesBotao } from "@/components/ui/Botao";
+import { Botao } from "@/components/ui/Botao";
 import { LinkWhatsApp } from "@/components/ui/LinkWhatsApp";
 import { mensagemPadrao } from "@/lib/mensagens";
 import { buscarPeca, listarPecas, rotuloCategoria } from "@/lib/pecas";
@@ -70,17 +70,20 @@ export default async function PaginaPeca({ params }: PageProps<"/galeria/[slug]"
           </ul>
 
           <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-            <LinkWhatsApp
-              origem="peca"
-              mensagem={mensagemPadrao("peca", { pecaNome: peca.nome })}
-              className={classesBotao("primario")}
-            >
-              Quero um modelo assim
-            </LinkWhatsApp>
+            <Botao href={`/pedido?peca=${encodeURIComponent(peca.slug)}`}>Quero um modelo assim</Botao>
             <Botao href="/contato" variante="contorno">
               Outras formas de contato
             </Botao>
           </div>
+          <p className="mt-4 text-sm text-grafite/70">
+            <LinkWhatsApp
+              origem="peca"
+              mensagem={mensagemPadrao("peca", { pecaNome: peca.nome })}
+              className="inline-block py-2 underline underline-offset-4 hover:text-ouro-escuro"
+            >
+              Prefiro falar direto no WhatsApp
+            </LinkWhatsApp>
+          </p>
           <p className="mt-4 text-sm text-grafite/60">
             Cada peça é feita nas suas medidas. Detalhes como tecido e cor podem ser personalizados.
           </p>
