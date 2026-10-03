@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Allura, Cormorant_Garamond, Jost } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { Chrome } from "@/components/layout/Chrome";
 import { Footer } from "@/components/layout/Footer";
@@ -30,6 +31,9 @@ export const metadata: Metadata = {
   },
 };
 
+// Medição (Umami Cloud): só carrega em produção e se o ID do site estiver definido.
+const umamiId = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID;
+
 export const viewport: Viewport = { themeColor: "#faf7f0" };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -37,6 +41,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="pt-BR" className={`${jost.variable} ${cormorant.variable} ${allura.variable}`}>
       <body className="flex min-h-screen flex-col">
         <Chrome rodape={<Footer />}>{children}</Chrome>
+        {umamiId && process.env.NODE_ENV === "production" && (
+          <Script
+            src="https://cloud.umami.is/script.js"
+            data-website-id={umamiId}
+            data-do-not-track="true"
+            strategy="afterInteractive"
+          />
+        )}
       </body>
     </html>
   );

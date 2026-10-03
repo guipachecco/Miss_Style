@@ -50,7 +50,10 @@ export function Footer() {
         </div>
 
         <p className="mt-12 text-center text-xs text-grafite/60">
-          © {new Date().getFullYear()} {site.nome} {site.subtitulo}. Todos os direitos reservados.
+          © {new Date().getFullYear()} {site.nome} {site.subtitulo}. Todos os direitos reservados. ·{" "}
+          <Link href="/privacidade" className="underline underline-offset-4 hover:text-ouro-escuro">
+            Política de privacidade
+          </Link>
         </p>
       </div>
     </footer>
