@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { FormularioContato } from "@/components/contato/FormularioContato";
+import { LinkWhatsApp } from "@/components/ui/LinkWhatsApp";
 import { TituloSecao } from "@/components/ui/TituloSecao";
-import { linkWhatsApp, site } from "@/lib/site";
+import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Contato",
@@ -17,14 +18,9 @@ export default function Contato() {
         <div className="space-y-8">
           <div>
             <h3 className="text-xs tracking-[0.25em] text-ouro-escuro uppercase">WhatsApp</h3>
-            <a
-              href={linkWhatsApp("Olá! Vim pelo site da Miss Style e gostaria de fazer uma encomenda.")}
-              target="_blank"
-              rel="noopener"
-              className="mt-2 block font-serif text-3xl text-grafite hover:text-ouro-escuro"
-            >
+            <LinkWhatsApp origem="contato" className="mt-2 block font-serif text-3xl text-grafite hover:text-ouro-escuro">
               {site.whatsappExibicao}
-            </a>
+            </LinkWhatsApp>
           </div>
           <div>
             <h3 className="text-xs tracking-[0.25em] text-ouro-escuro uppercase">Instagram</h3>

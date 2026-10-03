@@ -1,10 +1,11 @@
 import Image from "next/image";
 import { CartaoPeca } from "@/components/galeria/CartaoPeca";
-import { Botao } from "@/components/ui/Botao";
+import { Botao, classesBotao } from "@/components/ui/Botao";
+import { LinkWhatsApp } from "@/components/ui/LinkWhatsApp";
 import { TituloSecao } from "@/components/ui/TituloSecao";
 import { Versiculo } from "@/components/ui/Versiculo";
 import { listarPecas } from "@/lib/pecas";
-import { linkWhatsApp, passos, servicos, site, versiculos } from "@/lib/site";
+import { passos, servicos, site, versiculos } from "@/lib/site";
 
 export default async function Home() {
   const destaques = (await listarPecas({ destaque: true })).slice(0, 4);
@@ -21,9 +22,9 @@ export default async function Home() {
           </h1>
           <p className="mx-auto mt-6 max-w-md text-lg leading-relaxed text-grafite/80 md:mx-0">{site.frase}</p>
           <div className="mt-9 flex flex-col items-center gap-3 sm:flex-row sm:justify-center md:justify-start">
-            <Botao href={linkWhatsApp("Olá! Vim pelo site da Miss Style e gostaria de fazer uma encomenda.")} target="_blank">
+            <LinkWhatsApp origem="home_hero" className={classesBotao("primario")}>
               Falar no WhatsApp
-            </Botao>
+            </LinkWhatsApp>
             <Botao href="/galeria" variante="contorno">
               Ver modelos
             </Botao>
@@ -113,13 +114,9 @@ export default async function Home() {
           Conte a sua ideia pelo WhatsApp ou pelo Instagram e vamos transformá-la em uma peça única.
         </p>
         <div className="mt-8">
-          <Botao
-            href={linkWhatsApp("Olá! Vim pelo site da Miss Style e gostaria de fazer uma encomenda.")}
-            target="_blank"
-            className="bg-champagne !text-grafite hover:bg-marfim"
-          >
+          <LinkWhatsApp origem="home_final" className={classesBotao("primario", "bg-champagne !text-grafite hover:bg-marfim")}>
             Fazer minha encomenda
-          </Botao>
+          </LinkWhatsApp>
         </div>
       </section>
     </>

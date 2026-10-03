@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { Botao } from "@/components/ui/Botao";
+import { classesBotao } from "@/components/ui/Botao";
+import { LinkWhatsApp } from "@/components/ui/LinkWhatsApp";
 import { TituloSecao } from "@/components/ui/TituloSecao";
-import { linkWhatsApp, servicos } from "@/lib/site";
+import { servicos } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Serviços",
@@ -26,9 +27,9 @@ export default function Servicos() {
       </ul>
 
       <div className="mt-16 text-center">
-        <Botao href={linkWhatsApp("Olá! Vim pelo site da Miss Style e gostaria de saber mais sobre os serviços.")} target="_blank">
+        <LinkWhatsApp origem="servicos" className={classesBotao("primario")}>
           Pedir um orçamento
-        </Botao>
+        </LinkWhatsApp>
       </div>
     </div>
   );

@@ -10,6 +10,10 @@ const estilos = {
 
 type Props = ComponentProps<typeof Link> & { variante?: keyof typeof estilos };
 
+export function classesBotao(variante: keyof typeof estilos = "primario", extra = "") {
+  return `${base} ${estilos[variante]} ${extra}`.trim();
+}
+
 export function Botao({ variante = "primario", className = "", ...props }: Props) {
-  return <Link {...props} className={`${base} ${estilos[variante]} ${className}`} />;
+  return <Link {...props} className={classesBotao(variante, className)} />;
 }

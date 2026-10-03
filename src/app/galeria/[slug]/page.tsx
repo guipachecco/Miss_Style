@@ -3,9 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FotoPeca } from "@/components/galeria/CartaoPeca";
-import { Botao } from "@/components/ui/Botao";
+import { Botao, classesBotao } from "@/components/ui/Botao";
+import { LinkWhatsApp } from "@/components/ui/LinkWhatsApp";
+import { mensagemPadrao } from "@/lib/mensagens";
 import { buscarPeca, listarPecas, rotuloCategoria } from "@/lib/pecas";
-import { linkWhatsApp } from "@/lib/site";
 
 export async function generateStaticParams() {
   return (await listarPecas()).map((p) => ({ slug: p.slug }));
@@ -26,8 +27,6 @@ export default async function PaginaPeca({ params }: PageProps<"/galeria/[slug]"
   const { slug } = await params;
   const peca = await buscarPeca(slug);
   if (!peca) notFound();
-
-  const mensagem = `Olá! Vi o modelo "${peca.nome}" no site da Miss Style e gostaria de um modelo assim.`;
 
   return (
     <div className="mx-auto max-w-6xl px-5 py-10 md:py-16">
@@ -71,9 +70,13 @@ export default async function PaginaPeca({ params }: PageProps<"/galeria/[slug]"
           </ul>
 
           <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-            <Botao href={linkWhatsApp(mensagem)} target="_blank">
+            <LinkWhatsApp
+              origem="peca"
+              mensagem={mensagemPadrao("peca", { pecaNome: peca.nome })}
+              className={classesBotao("primario")}
+            >
               Quero um modelo assim
-            </Botao>
+            </LinkWhatsApp>
             <Botao href="/contato" variante="contorno">
               Outras formas de contato
             </Botao>
