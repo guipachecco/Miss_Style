@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Botao } from "@/components/ui/Botao";
+import { LinkWhatsApp } from "@/components/ui/LinkWhatsApp";
 import { TituloSecao } from "@/components/ui/TituloSecao";
-import { linkWhatsApp, servicos } from "@/lib/site";
+import { servicos } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Serviços",
@@ -26,9 +27,12 @@ export default function Servicos() {
       </ul>
 
       <div className="mt-16 text-center">
-        <Botao href={linkWhatsApp("Olá! Vim pelo site da Miss Style e gostaria de saber mais sobre os serviços.")} target="_blank">
-          Pedir um orçamento
-        </Botao>
+        <Botao href="/pedido">Pedir um orçamento</Botao>
+        <p className="mt-4 text-sm text-grafite/70">
+          <LinkWhatsApp origem="servicos" className="inline-block py-2 underline underline-offset-4 hover:text-ouro-escuro">
+            Prefiro falar direto no WhatsApp
+          </LinkWhatsApp>
+        </p>
       </div>
     </div>
   );

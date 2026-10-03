@@ -21,6 +21,7 @@ npm run dev
 | `NEXT_PUBLIC_SANITY_PROJECT_ID` | Projeto do Sanity (público, não é segredo) |
 | `NEXT_PUBLIC_SANITY_DATASET` | Dataset do Sanity (`production`) |
 | `NEXT_PUBLIC_SITE_URL` | Endereço público do site (links e prévias) |
+| `NEXT_PUBLIC_UMAMI_WEBSITE_ID` | ID do site no Umami Cloud (público). Sem ele, nenhuma medição é carregada; ela só roda em produção |
 | `NEXT_PUBLIC_INDEXAR` | `1` libera o Google; sem isso o site fica oculto das buscas (modo teste) |
 
 Nunca coloque tokens ou senhas em arquivos versionados.

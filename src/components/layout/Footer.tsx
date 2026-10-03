@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { LinkWhatsApp } from "@/components/ui/LinkWhatsApp";
 import { navegacao, site, versiculos } from "@/lib/site";
 
 export function Footer() {
@@ -34,9 +35,9 @@ export function Footer() {
             <p className="mb-3 text-xs tracking-[0.2em] text-dourado-logo uppercase">Fale com a gente</p>
             <ul className="space-y-2">
               <li>
-                <a href={`https://wa.me/${site.whatsapp}`} className="hover:text-ouro-escuro">
+                <LinkWhatsApp origem="rodape" className="hover:text-ouro-escuro">
                   WhatsApp {site.whatsappExibicao}
-                </a>
+                </LinkWhatsApp>
               </li>
               <li>
                 <a href={site.instagram.url} className="hover:text-ouro-escuro" rel="noopener">
@@ -49,7 +50,10 @@ export function Footer() {
         </div>
 
         <p className="mt-12 text-center text-xs text-grafite/60">
-          © {new Date().getFullYear()} {site.nome} {site.subtitulo}. Todos os direitos reservados.
+          © {new Date().getFullYear()} {site.nome} {site.subtitulo}. Todos os direitos reservados. ·{" "}
+          <Link href="/privacidade" className="underline underline-offset-4 hover:text-ouro-escuro">
+            Política de privacidade
+          </Link>
         </p>
       </div>
     </footer>

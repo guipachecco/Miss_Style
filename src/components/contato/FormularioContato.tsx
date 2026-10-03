@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { rastrear } from "@/lib/analytics";
 import { linkWhatsApp } from "@/lib/site";
 
 const campo =
@@ -30,6 +31,7 @@ export function FormularioContato() {
     if (quando) linhas.push(`Preciso da peça para: ${quando}.`);
     linhas.push("", mensagem);
 
+    rastrear("whatsapp_clique", { origem: "formulario_contato" });
     window.open(linkWhatsApp(linhas.join("\n")), "_blank", "noopener");
   }
 

@@ -12,8 +12,10 @@ export const site = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
 } as const;
 
-export function linkWhatsApp(mensagem: string) {
-  return `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(mensagem)}`;
+// Sem mensagem devolve o link simples (conversa vazia), sem "?text=".
+export function linkWhatsApp(mensagem?: string) {
+  const base = `https://wa.me/${site.whatsapp}`;
+  return mensagem ? `${base}?text=${encodeURIComponent(mensagem)}` : base;
 }
 
 // Versículos: trechos idênticos em ARC e ACF. Confirmar a versão com a dona antes de publicar.
